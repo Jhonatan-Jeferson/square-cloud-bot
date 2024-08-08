@@ -1,10 +1,6 @@
 from discord.ext.commands import Cog, Bot
 from discord import app_commands, Interaction, Embed, Colour
 
-from random import choice
-
-from ..utils import initial_view
-
 
 class SquareCommands(Cog):
 
@@ -17,29 +13,18 @@ class SquareCommands(Cog):
 
         # Definindo o bot dentro do cog
         self.bot = client
+        
+    @app_commands.command(name="set_token")
+    async def set_token(self, interaction: Interaction) -> None:
+    	
+    	"""Defines the acess token of a user"""
+    	pass
 
     @app_commands.command(name="apps")
     async def get_ui(self, interaction: Interaction) -> None:
 
         """Sends the UI"""
-
-        # Definindo a descrição
-        description = (
-            "Welcome, what application you want to acess now?\n"\
-            "Select below"
-        )
-
-        # Definindo a embed
-        embed = Embed(
-            title="SquareCloud",
-            description=description,
-            colour=choice([Colour.dark_blue(), Colour.dark_purple(), Colour.dark_green()])
-        )
-
-        # View
-        view = await initial_view()
-
-        await interaction.response.send_message(embed=embed, view=view)
+        pass
 
 
 async def setup(client: Bot) -> None:
