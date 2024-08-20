@@ -2,7 +2,7 @@ from os import listdir, path
 
 from discord import Intents
 from discord.ext.commands import Bot
-
+from squarecloud import Client
 # from bot.database.database import Database
 
 
@@ -13,9 +13,11 @@ class SquareBot(Bot):
     """
 
     def __init__(self, locale: dict[str, str]) -> None:
+        from os import getenv
         super().__init__(command_prefix='.', intents=Intents.default())
         self.synced = False
         self.locale = locale
+        self.square = Client(getenv('API_TOKEN'))
 
     async def _load_modules(self, pathing: str):
         """Load modules from path automatically looking every file in a dir"""
@@ -39,8 +41,6 @@ class SquareBot(Bot):
         """
         from asyncio import gather
 
-        from .groups.squarecloud import Square
-
         path_to_cogs = 'bot/cogs'
         path_to_groups = 'bot/groups'
         await gather(
@@ -52,7 +52,6 @@ class SquareBot(Bot):
             .get('load_cogs')
             .format(', '.join(cogs=self.cogs.keys()))
         )
-        self.tree.add_command(Square())
 
     async def on_ready(self) -> None:
         """
