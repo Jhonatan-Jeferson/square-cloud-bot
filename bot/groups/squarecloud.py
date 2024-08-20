@@ -6,10 +6,15 @@ from discord.ext.commands import Bot
 
 class Square(app_commands.Group):
     """This group brings all square slash commands"""
-
+    
+    def __init__(self, client: Bot):
+        super().__init__()
+        self.client = client
+    
     @app_commands.command(name='account_info')
     async def get_account_info(self, interaction: Interaction):
         """This command gets the account info of the token owner"""
+        account_info = ...
 
     @app_commands.command(name='apps')
     async def get_apps(self, interaction: Interaction):
@@ -32,4 +37,4 @@ class Square(app_commands.Group):
 
 async def setup(client: Bot) -> None:
     """Load the group on bot"""
-    client.tree.add_command(Square())
+    client.tree.add_command(Square(client))
