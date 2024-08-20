@@ -3,7 +3,6 @@ from os import listdir, path
 from discord import Intents
 from discord.ext.commands import Bot
 from squarecloud import Client
-# from bot.database.database import Database
 
 
 class SquareBot(Bot):
@@ -14,6 +13,7 @@ class SquareBot(Bot):
 
     def __init__(self, locale: dict[str, str]) -> None:
         from os import getenv
+        
         super().__init__(command_prefix='.', intents=Intents.default())
         self.synced = False
         self.locale = locale
