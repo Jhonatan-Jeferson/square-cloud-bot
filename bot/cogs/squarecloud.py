@@ -1,34 +1,26 @@
-from discord.ext.commands import Cog, Bot
-from discord import app_commands, Interaction, Embed, Colour
+from discord import Colour, Embed, Interaction, app_commands
+from discord.ext.commands import Bot, Cog
+from discord.ext.tasks import loop
 
 
 class SquareCommands(Cog):
-
     """
-    (Português)Este é o Cog dos comandos da square
+    (Português)Este é o Cog dos comandos da square\n
     (English) This is the square commands Cog
     """
 
     def __init__(self, client: Bot) -> None:
+        from ..config import RESTART_APLICATIONS
 
-        # Definindo o bot dentro do cog
         self.bot = client
-        
-    @app_commands.command(name="set_token")
-    async def set_token(self, interaction: Interaction) -> None:
-    	
-    	"""Defines the acess token of a user"""
-    	pass
+        if RESTART_APLICATIONS is True:
+            self.start_applications.start()
 
-    @app_commands.command(name="apps")
-    async def get_ui(self, interaction: Interaction) -> None:
-
-        """Sends the UI"""
-        pass
+    @loop(name='start_offline_apps', minutes=5)
+    async def start_applications(self):
+        """This task will check all your applications and gonna start the offline ones"""
 
 
 async def setup(client: Bot) -> None:
-
     """Setup necessário pro bot carregar o cog"""
-
     await client.add_cog(SquareCommands(client))
