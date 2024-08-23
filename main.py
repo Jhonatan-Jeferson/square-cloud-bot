@@ -10,7 +10,7 @@ def check_for_environment(language: dict[str,str]) -> None:
     """This function checks if you created the environment"""
     from uuid import UUID
     from os import path
-    
+
     dotenv_path: str = './bot/.env'
     if not path.exists(dotenv_path):
         print(language.get('dotenv_missing'))
@@ -29,7 +29,7 @@ def check_for_environment(language: dict[str,str]) -> None:
                 f'BOT_TOKEN={bot_token}\nAPI_TOKEN={api_token}'
             )
 
-def main() -> None:    
+def main() -> None:
     language: dict[str, str] = config.RESPONSES.get(config.LANGUAGE)
     check_for_environment(language)
     load_dotenv()
